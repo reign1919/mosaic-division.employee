@@ -1,0 +1,585 @@
+/* ============================================
+   THE MOSAIC FOUNDATION — GLOBAL DESIGN SYSTEM
+   Maximalist zine/street-art/scrapbook aesthetic
+   ============================================ */
+
+/* ============================================
+   DESIGN TOKENS
+   ============================================ */
+:root {
+  /* Color Palette - Base */
+  --bg: #fdf6ec;
+  --bg2: #fff1d6;
+  --bg3: #ffe9be;
+  --surface: #ffffff;
+  --surface2: #fff8ef;
+  --surface3: #fff3e3;
+
+  /* Text Colors */
+  --text: #1a0536;
+  --text2: #4a2d6e;
+  --text3: #8b6aaa;
+
+  /* Borders */
+  --border: rgba(90, 20, 120, 0.12);
+  --border2: rgba(90, 20, 120, 0.22);
+
+  /* Maximalist Accent Colors (10-color system) */
+  --c1: #ff2d7b;  /* Hot Pink */
+  --c2: #ff6b35;  /* Tangerine */
+  --c3: #b8ff00;  /* Neon Lime */
+  --c4: #6c2bd9;  /* Deep Violet */
+  --c5: #ffe14d;  /* Sunshine Yellow */
+  --c6: #00d4ff;  /* Cyan Electric */
+  --c7: #1a0536;  /* Ink Black-Violet */
+  --c8: #ff9ee7;  /* Bubblegum Pink */
+  --c9: #7bffb2;  /* Mint Neon */
+  --c10: #ff4444; /* Cherry Red */
+
+  /* Semantic Aliases */
+  --accent: #ff2d7b;
+  --accent2: #b8ff00;
+
+  /* Typography */
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Epilogue', sans-serif;
+  --font-hand: 'Shadows Into Light Two', cursive;
+
+  /* Spacing & Layout */
+  --nav-h: 78px;
+  --r: 12px;
+  --r-lg: 20px;
+
+  /* Shadows — Brutalist System */
+  --shadow-brutal: 4px 4px 0px var(--c7);
+  --shadow-brutal-sm: 2px 2px 0px var(--c7);
+  --shadow-brutal-lg: 6px 6px 0px var(--c7);
+  --shadow-brutal-accent: 4px 4px 0px var(--accent);
+
+  /* Transitions & Easings */
+  --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  --spring: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================
+   DARK MODE
+   ============================================ */
+[data-theme="dark"] {
+  --bg: #0a0418;
+  --bg2: #120824;
+  --bg3: #1a0e30;
+  --surface: #150a28;
+  --surface2: #1a0f30;
+  --surface3: #20123a;
+  --text: #f0e8ff;
+  --text2: #c8b0e8;
+  --text3: #a080d0;
+  --border: rgba(180, 0, 255, 0.15);
+  --border2: rgba(180, 0, 255, 0.25);
+  --shadow-brutal: 4px 4px 0px rgba(180, 0, 255, 0.3);
+  --shadow-brutal-sm: 2px 2px 0px rgba(180, 0, 255, 0.3);
+  --shadow-brutal-lg: 6px 6px 0px rgba(180, 0, 255, 0.3);
+  --shadow-brutal-accent: 4px 4px 0px var(--accent);
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Paper Texture Overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 99997;
+}
+
+[data-theme="dark"] body::after {
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg2);
+  border-radius: 4px;
+  border: 2px solid var(--bg2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--c1), var(--c4));
+  border-radius: 4px;
+  border: 2px solid var(--bg2);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6, .display-font {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+h2 { font-size: clamp(2rem, 4vw, 3rem); }
+h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
+
+.mono {
+  font-family: var(--font-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+}
+
+.handwritten {
+  font-family: var(--font-hand);
+  font-weight: 700;
+}
+
+/* ============================================
+   LAYOUT UTILITIES
+   ============================================ */
+.section {
+  padding: 100px 0;
+}
+
+.container {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.section-title-centered {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.section-sub {
+  text-align: center;
+  font-family: var(--font-hand);
+  color: var(--text2);
+  font-size: 1.25rem;
+  margin-bottom: 48px;
+}
+
+/* ============================================
+   REUSABLE CSS PRIMITIVES
+   ============================================ */
+
+/* Tag Stickers */
+.tag-glow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border: 2px solid var(--accent);
+  border-radius: 50px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  font-family: var(--font-hand);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  box-shadow: var(--shadow-brutal-sm);
+  transform: rotate(-1deg);
+  transition: all var(--spring);
+}
+
+.tag-glow .star {
+  animation: spin 2s linear infinite;
+  display: inline-block;
+}
+
+.tag-glow:hover {
+  transform: rotate(1deg) scale(1.05);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-hand);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.tag::before {
+  content: '—';
+  color: var(--accent);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 2.5px solid var(--c7);
+  cursor: pointer;
+  transition: all var(--spring);
+  text-decoration: none;
+}
+
+.btn:hover {
+  transform: translate(-2px, -2px);
+}
+
+.btn:active {
+  transform: translate(1px, 1px);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  box-shadow: var(--shadow-brutal);
+}
+
+.btn-primary:hover {
+  box-shadow: var(--shadow-brutal-lg);
+}
+
+.btn-outline {
+  background: white;
+  color: var(--c7);
+}
+
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: var(--shadow-brutal-accent);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 2.5px solid var(--c7);
+  color: var(--c7);
+}
+
+.btn-ghost:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  box-shadow: var(--shadow-brutal);
+}
+
+/* Pill Tags */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-family: var(--font-hand);
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--surface);
+  box-shadow: var(--shadow-brutal-sm);
+  transform: rotate(var(--rot, -1deg));
+  transition: all var(--spring);
+}
+
+.pill:hover {
+  transform: rotate(0) scale(1.08);
+}
+
+/* Glow Cards */
+.glow-card {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-brutal);
+  transition: all var(--spring);
+}
+
+.glow-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-brutal-lg);
+}
+
+/* (mosaic-divider removed) */
+
+/* Tape Decorators */
+.tape {
+  position: absolute;
+  width: 60px;
+  height: 20px;
+  background: rgba(255, 225, 77, 0.7);
+  transform: rotate(var(--rotation, -8deg));
+  z-index: 10;
+}
+
+.tape-tl {
+  top: -10px;
+  left: 20px;
+  --rotation: -8deg;
+}
+
+.tape-tr {
+  top: -10px;
+  right: 20px;
+  --rotation: 12deg;
+}
+
+/* Scrapbook Arrows */
+.scrapbook-arrow {
+  font-family: var(--font-hand);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  transform: rotate(var(--rot, -15deg));
+  display: inline-block;
+}
+
+/* ============================================
+   FORM ELEMENTS
+   ============================================ */
+input, textarea, select {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  background: var(--surface2);
+  border: 2px solid var(--border2);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  color: var(--text);
+  transition: all var(--transition);
+  width: 100%;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--surface);
+  box-shadow: var(--shadow-brutal-accent);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234a2d6e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 18px;
+  padding-right: 44px;
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--border2);
+  border-radius: 6px;
+  background: var(--surface2);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+}
+
+input[type="checkbox"]:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+/* Page Enter Animation */
+.page-enter {
+  animation: pageSlap 0.5s var(--spring) forwards;
+}
+
+@keyframes pageSlap {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) rotate(-1deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.02) rotate(0.5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Scroll Reveal Base */
+.reveal-child {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.6s var(--spring), transform 0.6s var(--spring);
+}
+
+.reveal-child.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(var(--rotation, 0deg)); }
+  50% { transform: translateY(-10px) rotate(var(--rotation, 0deg)); }
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.95); }
+}
+
+/* Wobble Animation */
+@keyframes wobble {
+  0%, 100% { transform: rotate(-3deg) scale(1); }
+  50% { transform: rotate(3deg) scale(1.05); }
+}
+
+/* ============================================
+   MODAL STYLES
+   ============================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 5, 54, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-brutal-lg);
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalSlap 0.4s var(--spring);
+}
+
+@keyframes modalSlap {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) rotate(-2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border: 2.5px solid var(--c7);
+  border-radius: 8px;
+  background: var(--surface2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--text);
+  transition: all var(--spring);
+}
+
+.modal-close:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  transform: rotate(90deg);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1000px) {
+  .section {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.5rem; }
+
+  .btn {
+    padding: 12px 20px;
+    font-size: 13px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
