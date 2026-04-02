@@ -186,6 +186,73 @@
   font-size: 14px;
 }
 
+/* Security Info Badges */
+.security-info {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: var(--bg);
+  border-radius: var(--r-md);
+  border: 1px solid var(--border2);
+}
+
+.security-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text3);
+  font-weight: 600;
+}
+
+.security-badge svg {
+  color: var(--accent);
+}
+
+/* Lockout Timer */
+.lockout-timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  background: var(--bg);
+  border-radius: var(--r-md);
+  margin: 24px 0;
+  border: 2px solid var(--c10);
+}
+
+.timer-display {
+  font-size: 2.5rem;
+  font-family: var(--font-mono);
+  color: var(--c10);
+  font-weight: 700;
+}
+
+/* Secondary Button */
+.btn-secondary {
+  padding: 14px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all var(--transition);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  background: var(--surface);
+  border-color: var(--accent);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* Responsive */
 @media (max-width: 480px) {
   .auth-card {
